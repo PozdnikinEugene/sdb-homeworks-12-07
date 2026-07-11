@@ -71,18 +71,18 @@
 | Магазины             | DB_Stores         | Shard_Stores_01 (store_id 0–499), Shard_Stores_02 (500–999), … или просто реплики |
 
 ##### Блоксхема (текстовое описание)
-[Приложение / API]
-       |
-       +---> [Router / Proxy (ProxySQL / Vitess / MaxScale)]
-               |
-               +--- [DB_Users] --- [Shard_Users_01 (RW Master)] --- [Replica_Users_01]
-               |                  + [Shard_Users_02 (RW Master)] --- [Replica_Users_02]
-               |
-               +--- [DB_Books] --- [Shard_Books_01 (RW Master)] --- [Replica_Books_01]
-               |                  + [Shard_Books_02 (RW Master)] --- [Replica_Books_02]
-               |
-               +--- [DB_Stores] --- [Shard_Stores_01 (RW Master)] --- [Replica_Stores_01]
-                                  + [Shard_Stores_02 (RW Master)] --- [Replica_Stores_02]
+\[Приложение / API]
+\       |
+\       +---> [Router / Proxy (ProxySQL / Vitess / MaxScale)]
+\               |
+\               +--- [DB_Users] --- [Shard_Users_01 (RW Master)] --- [Replica_Users_01]
+\               |                  + [Shard_Users_02 (RW Master)] --- [Replica_Users_02]
+\               |
+\               +--- [DB_Books] --- [Shard_Books_01 (RW Master)] --- [Replica_Books_01]
+\               |                  + [Shard_Books_02 (RW Master)] --- [Replica_Books_02]
+\               |
+\               +--- [DB_Stores] --- [Shard_Stores_01 (RW Master)] --- [Replica_Stores_01]
+\                                  + [Shard_Stores_02 (RW Master)] --- [Replica_Stores_02]
 
 
 ##### Что где располагается:
