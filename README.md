@@ -57,11 +57,11 @@
 #### Как совместить вертикальный и горизонтальный шардинг
 На практике делают так:
 
-- Сначала делают вертикальный шардинг: 'users', 'books', 'stores' разнесены по разным базам.
+- Сначала делают вертикальный шардинг: `users`, `books`, `stores` разнесены по разным базам.
 - Затем каждую из этих баз горизонтально шардируют по своему ключу:
-* ('users') → шарды по диапазонам user_id или хешу.
-* ('books') → шарды по book_id.
-* ('stores') → либо шардинг по store_id (если магазинов очень много), либо репликация без горизонтального шардинга (если их немного).
+* `users` → шарды по диапазонам user_id или хешу.
+* `books` → шарды по book_id.
+* `stores` → либо шардинг по store_id (если магазинов очень много), либо репликация без горизонтального шардинга (если их немного).
 Пример распределения:
 
 | Логическая сущность | Вертикальный шард | Горизонтальные шарды (пример) |
@@ -71,19 +71,20 @@
 | Магазины             | DB_Stores         | Shard_Stores_01 (store_id 0–499), Shard_Stores_02 (500–999), … или просто реплики |
 
 ##### Блоксхема (текстовое описание)
-\[Приложение / API]
-\       |
-\       +---> [Router / Proxy (ProxySQL / Vitess / MaxScale)]
-\               |
-\               +--- [DB_Users] --- [Shard_Users_01 (RW Master)] --- [Replica_Users_01]
-\               |                  + [Shard_Users_02 (RW Master)] --- [Replica_Users_02]
-\               |
-\               +--- [DB_Books] --- [Shard_Books_01 (RW Master)] --- [Replica_Books_01]
-\               |                  + [Shard_Books_02 (RW Master)] --- [Replica_Books_02]
-\               |
-\               +--- [DB_Stores] --- [Shard_Stores_01 (RW Master)] --- [Replica_Stores_01]
-\                                  + [Shard_Stores_02 (RW Master)] --- [Replica_Stores_02]
-
+```
+[Приложение / API]
+       |
+       +---> [Router / Proxy (ProxySQL / Vitess / MaxScale)]
+               |
+               +--- [DB_Users] --- [Shard_Users_01 (RW Master)] --- [Replica_Users_01]
+               |                  + [Shard_Users_02 (RW Master)] --- [Replica_Users_02]
+               |
+               +--- [DB_Books] --- [Shard_Books_01 (RW Master)] --- [Replica_Books_01]
+               |                  + [Shard_Books_02 (RW Master)] --- [Replica_Books_02]
+               |
+               +--- [DB_Stores] --- [Shard_Stores_01 (RW Master)] --- [Replica_Stores_01]
+                                  + [Shard_Stores_02 (RW Master)] --- [Replica_Stores_02]
+```
 
 ##### Что где располагается:
 
